@@ -1,12 +1,12 @@
-import styled, { css } from "styled-components";
-import { PopupEpisodes } from "./PopupEpisodes";
-import { PopupHeader } from "./PopupHeader";
-import { PopupInfo } from "./PopupInfo";
+import styled, { css } from 'styled-components';
+import { PopupEpisodes } from './PopupEpisodes';
+import { PopupHeader } from './PopupHeader';
+import { PopupInfo } from './PopupInfo';
 
 export function Popup({
   settings: { visible, content = {} },
   setSettings,
-  onClose,
+  onClose
 }) {
   const {
     name,
@@ -17,7 +17,7 @@ export function Popup({
     type,
     origin,
     location,
-    episode: episodes,
+    episode: episodes
   } = content;
 
   function togglePopup(e) {
@@ -27,7 +27,7 @@ export function Popup({
     onClose();
     setSettings((prevState) => ({
       ...prevState,
-      visible: !prevState.visible,
+      visible: !prevState.visible
     }));
   }
 
@@ -117,7 +117,7 @@ const CloseIcon = styled.div`
 
   &:before,
   &:after {
-    content: "";
+    content: '';
     position: absolute;
     display: block;
     width: 20px;

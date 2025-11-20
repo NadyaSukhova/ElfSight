@@ -1,46 +1,46 @@
-import { useState } from "react";
-import styled from "styled-components";
-import { Popup } from "./popup";
-import { useData } from "./providers";
-import { Card } from "./Card";
+import { useState } from 'react';
+import styled from 'styled-components';
+import { Popup } from './popup';
+import { useData } from './providers';
+import { Card } from './Card';
 
 const defaultPopupSettings = {
   visible: false,
-  content: {},
+  content: {}
 };
 
 export function ItemsGrid() {
   const { characters } = useData();
   const [popupSettings, setPopupSettings] = useState(defaultPopupSettings);
   const [scrollY, setScrollY] = useState(0);
-  
 
   function cardOnClickHandler(props) {
-    const mainElement = document.querySelector("body");
+    const mainElement = document.querySelector('body');
     const currentScroll = window.scrollY;
-    const scrollWidth =  window.innerWidth - document.documentElement.clientWidth;;
+    const scrollWidth =
+      window.innerWidth - document.documentElement.clientWidth;
     setScrollY(currentScroll);
     if (mainElement) {
-      mainElement.style.overflow = "hidden";
+      mainElement.style.overflow = 'hidden';
       mainElement.style.paddingRight = `${scrollWidth}px`;
       mainElement.dataset.savedScroll = currentScroll;
     }
     setPopupSettings({
       visible: true,
-      content: { ...props },
+      content: { ...props }
     });
   }
 
   function closePopup() {
-    const mainElement = document.querySelector("body");
+    const mainElement = document.querySelector('body');
     if (mainElement) {
-      mainElement.style.overflow = "";
+      mainElement.style.overflow = '';
       mainElement.style.paddingRight = '0';
     }
     const savedScroll = mainElement.dataset.savedScroll;
     if (savedScroll) {
-    window.scrollTo(0, savedScroll);
-    } 
+      window.scrollTo(0, savedScroll);
+    }
   }
 
   if (!characters.length) {
@@ -57,7 +57,11 @@ export function ItemsGrid() {
         />
       ))}
 
-      <Popup settings={popupSettings} setSettings={setPopupSettings} onClose={closePopup}/>
+      <Popup
+        settings={popupSettings}
+        setSettings={setPopupSettings}
+        onClose={closePopup}
+      />
     </Container>
   );
 }
