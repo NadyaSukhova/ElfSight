@@ -13,20 +13,26 @@ export function PopupEpisodes({ episodes }) {
     if (!episodes?.length) {
       return;
     }
+    try {
+      setIsFetching(true);
 
-    setIsFetching(true);
+      const episodesIds = episodes.map((ep) => ep.match(/\d+$/)[0]);
 
-    const episodesIds = episodes.map((ep) => ep.match(/\d+$/)[0]);
-
-    axios
-      .get(`${API_EPISODES_URL}/${episodesIds.join(',')}`)
-      .then(({ data }) => {
-        if (episodes.length === 1) {
-          setSeries([data]);
-        } else {
-          setSeries(data);
-        }
-      });
+      axios
+        .get(`${API_EPISODES_URL}/${episodesIds.join(',')}`)
+        .then(({ data }) => {
+          if (episodes.length === 1) {
+            setSeries([data]);
+          } else {
+            setSeries(data);
+          }
+        });
+    } catch (err) {
+      console.error('Ошибка при загрузке эпизодов');
+      console.error(err);
+    } finally {
+      setIsFetching(false);
+    }
   }, [episodes]);
 
   if (isFetching) {

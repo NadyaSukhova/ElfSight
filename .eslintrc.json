@@ -9,7 +9,7 @@
     "react/prop-types": "off",
     "react/display-name": "off",
     "default-param-last": "error",
-    "import/no-default-export": "off",
+    "import/no-default-export": "error",
     "no-unused-vars": ["warn", { "vars": "all", "args": "after-used" }],
     "no-console": ["warn", { "allow": ["warn", "error"] }],
     "import/no-unused-modules": ["warn", { "unusedExports": true }],
