@@ -8,6 +8,7 @@ export function Logo() {
 const StyledLogo = styled.img`
   max-width: 300px;
   user-select: none;
+  justify-self: center;
 
   @media (max-width: 930px) {
     margin-bottom: 20px;
