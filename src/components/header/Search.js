@@ -56,9 +56,9 @@ export function Search() {
         <option value="" disabled hidden>
           Status
         </option>
-        <option value="alive">alive</option>
-        <option value="dead">dead</option>
-        <option value="unknown">unknown</option>
+        <option value="Alive">Alive</option>
+        <option value="Dead">Dead</option>
+        <option value="Unknown">Unknown</option>
       </SearchSelect>
       <SearchSelect
         type="text"
@@ -69,10 +69,10 @@ export function Search() {
         <option value="" disabled hidden>
           Gender
         </option>
-        <option value="female">female</option>
-        <option value="male">male</option>
-        <option value="genderless">genderless</option>
-        <option value="unknown">unknown</option>
+        <option value="Female">Female</option>
+        <option value="Male">Male</option>
+        <option value="Genderless">Genderless</option>
+        <option value="Unknown">Unknown</option>
       </SearchSelect>
       <SearchSelect
         onChange={(e) => setTempSpecies(e.target.value)}
