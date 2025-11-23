@@ -5,8 +5,8 @@ import { Search } from './Search';
 export function Header() {
   return (
     <HeaderContainer>
-      <Search />
       <Logo />
+      <Search />
     </HeaderContainer>
   );
 }
@@ -16,4 +16,5 @@ const HeaderContainer = styled.div`
   display: grid;
   grid-template-rows: auto auto;
   gap: 10px;
+  justify-items: end;
 `;

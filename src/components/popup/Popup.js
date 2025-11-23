@@ -2,6 +2,7 @@ import styled, { css } from 'styled-components';
 import { PopupEpisodes } from './PopupEpisodes';
 import { PopupHeader } from './PopupHeader';
 import { PopupInfo } from './PopupInfo';
+import { useEffect } from 'react';
 
 export function Popup({
   settings: { visible, content = {} },
@@ -31,8 +32,28 @@ export function Popup({
     }));
   }
 
+  const handleOverlayClick = (e) => {
+    if (e.currentTarget === e.target) {
+      onClose();
+      setSettings((prev) => ({ ...prev, visible: false }));
+    }
+  };
+
+  useEffect(() => {
+    const handleEsc = (e) => {
+      if (e.keyCode === 27) {
+        onClose();
+        setSettings((prev) => ({ ...prev, visible: false }));
+      }
+    };
+    if (visible) {
+      document.addEventListener('keydown', handleEsc);
+      return () => document.removeEventListener('keydown', handleEsc);
+    }
+  }, [visible, onClose, setSettings]);
+
   return (
-    <PopupContainer visible={visible}>
+    <PopupContainer visible={visible} onClick={handleOverlayClick}>
       <StyledPopup>
         <CloseIcon onClick={togglePopup} />
 

@@ -18,11 +18,36 @@ export function DataProvider({ children }) {
   const [info, setInfo] = useState({});
   const [apiURL, setApiURL] = useState(API_URL);
   const [searchName, setSearchName] = useState('');
+  const [searchGender, setSearchGender] = useState('');
+  const [searchType, setSearchType] = useState('');
+  const [searchSpecies, setSearchSpecies] = useState('');
+  const [searchStatus, setSearchStatus] = useState('');
+  const [searchUrl, setSearchUrl] = useState(API_URL);
 
-  const searchUrl = searchName == '' ? apiURL : `${apiURL}?name=${searchName}`;
+  useEffect(() => {
+    const newSearchUrl =
+      (activePage > 0 ? `page=${activePage + 1}` : '?page=1') +
+      (searchName ? `&name=${searchName}` : '') +
+      (searchGender ? `&gender=${searchGender}` : '') +
+      (searchType ? `&type=${searchType}` : '') +
+      (searchSpecies ? `&species=${searchSpecies}` : '') +
+      (searchStatus ? `&status=${searchStatus}` : '');
+
+    const finalUrl = newSearchUrl ? `${API_URL}?${newSearchUrl}` : API_URL;
+    setSearchUrl(finalUrl);
+  }, [
+    activePage,
+    searchName,
+    searchGender,
+    searchType,
+    searchSpecies,
+    searchStatus
+  ]);
+
   const fetchData = useCallback(async (url) => {
     setIsFetching(true);
     setIsError(false);
+    console.log(activePage);
     axios
       .get(url)
       .then(({ data }) => {
@@ -49,6 +74,14 @@ export function DataProvider({ children }) {
       setApiURL,
       searchName,
       setSearchName,
+      searchGender,
+      setSearchGender,
+      searchType,
+      setSearchType,
+      searchSpecies,
+      setSearchSpecies,
+      searchStatus,
+      setSearchStatus,
       characters,
       fetchData,
       isFetching,
@@ -59,7 +92,10 @@ export function DataProvider({ children }) {
       activePage,
       apiURL,
       searchName,
-      setSearchName,
+      searchGender,
+      searchType,
+      searchSpecies,
+      searchStatus,
       characters,
       isFetching,
       isError,
