@@ -46,9 +46,12 @@ export function Popup({
         setSettings((prev) => ({ ...prev, visible: false }));
       }
     };
+
     if (visible) {
       document.addEventListener('keydown', handleEsc);
-      return () => document.removeEventListener('keydown', handleEsc);
+      const deleteEsc = document.removeEventListener('keydown', handleEsc);
+
+      return deleteEsc;
     }
   }, [visible, onClose, setSettings]);
 

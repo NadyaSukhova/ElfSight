@@ -16,5 +16,11 @@ const HeaderContainer = styled.div`
   display: grid;
   grid-template-rows: auto auto;
   gap: 10px;
-  justify-items: end;
+  @media (min-width: 951px) {
+    justify-content: initial;
+    justify-items: end;
+  }
+  @media (max-width: 531px) {
+    justify-items: center;
+  }
 `;

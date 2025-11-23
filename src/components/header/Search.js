@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 import { useState } from 'react';
 import { useData } from '../providers/DataProvider';
+import chevron from '../../assets/chevron.png';
 
 export function Search() {
   const {
@@ -117,10 +118,10 @@ const SearchContainer = styled.div`
   gap: 10px;
   flex-wrap: wrap;
   justify-content: flex-end;
-  @media (max-width: 950px) {
-    justify-content: start;
+  @media (max-width: 951px) {
+    max-width: 482px;
   }
-  @media (max-width: 530px) {
+  @media (max-width: 531px) {
     flex-direction: column;
     width: 100%;
     max-width: 240px;
@@ -128,7 +129,7 @@ const SearchContainer = styled.div`
 `;
 
 const SearchInput = styled.input`
-  padding: 10px 15px;
+  padding: 12px 12px 12px 16px;
   border: 1px solid;
   border-radius: 10px;
   font-size: 24px;
@@ -138,28 +139,33 @@ const SearchInput = styled.input`
   background-color: #263750;
   width: 100%;
   max-width: 180px;
-  @media (max-width: 530px) {
-    width: 100%;
+  @media (max-width: 951px) {
+    max-width: 150px;
+  }
+  @media (max-width: 531px) {
     max-width: 240px;
   }
 `;
+
 const SearchSelect = styled.select`
-  padding: 10px 15px;
+  padding: 12px 12px 12px 16px;
   border: 1px solid;
   border-radius: 10px;
   font-size: 24px;
   color: white;
   border: 1px solid #83bf46;
   border-radius: 8px;
-  background-color: #263750;
   width: 100%;
   max-width: 180px;
-
+  appearance: none;
+  background: url(${chevron}) no-repeat right 12px center #263750;
   &.placeholder {
     color: #757575;
   }
-  @media (max-width: 530px) {
-    width: 100%;
+  @media (max-width: 951px) {
+    max-width: 150px;
+  }
+  @media (max-width: 531px) {
     max-width: 240px;
   }
 `;
@@ -176,8 +182,10 @@ const SearchApplyButton = styled.button`
   max-width: 85px;
   display: flex;
   justify-content: center;
-  @media (max-width: 530px) {
-    width: 100%;
+  @media (max-width: 951px) {
+    max-width: 70px;
+  }
+  @media (max-width: 531px) {
     max-width: 240px;
   }
 `;
@@ -194,8 +202,10 @@ const SearchResetButton = styled.button`
   max-width: 85px;
   display: flex;
   justify-content: center;
-  @media (max-width: 530px) {
-    width: 100%;
+  @media (max-width: 951px) {
+    max-width: 70px;
+  }
+  @media (max-width: 531px) {
     max-width: 240px;
   }
 `;

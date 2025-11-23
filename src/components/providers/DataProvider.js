@@ -47,7 +47,6 @@ export function DataProvider({ children }) {
   const fetchData = useCallback(async (url) => {
     setIsFetching(true);
     setIsError(false);
-    console.log(activePage);
     axios
       .get(url)
       .then(({ data }) => {
