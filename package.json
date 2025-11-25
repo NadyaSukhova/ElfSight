@@ -1,6 +1,7 @@
 {
   "name": "elfsight-test-task",
   "version": "1.0.0",
+  "homepage": "https://nadyasukhova.github.io/ElfSight",
   "private": true,
   "scripts": {
     "predeploy": "npm run build",
