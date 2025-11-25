@@ -12,17 +12,17 @@ export function Card({
   onClickHandler
 }) {
   return (
-    <StyledCard onClick={onClickHandler}>
+    <CardContainer onClick={onClickHandler}>
       <CardImg src={image} alt={name} />
       <CardInfo>
         <CardTitle name={name} gender={gender} />
         <CardStatus status={status} species={species} type={type} />
       </CardInfo>
-    </StyledCard>
+    </CardContainer>
   );
 }
 
-const StyledCard = styled.div`
+const CardContainer = styled.div`
   display: flex;
   width: 100%;
   max-width: 400px;

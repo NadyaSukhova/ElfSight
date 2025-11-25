@@ -4,28 +4,20 @@ import { ReactComponent as Female } from '../../assets/genders/female.svg';
 import { ReactComponent as Genderless } from '../../assets/genders/genderless.svg';
 
 export function CardTitle({ name, gender, className }) {
-  const Icon = (() => {
-    if (gender === 'Male') {
-      return <Male width={20} height={20} fill="#33b3c8" title="Male" />;
-    }
-
-    if (gender === 'Female') {
-      return <Female width={24} height={24} fill="pink" title="Female" />;
-    }
-
-    if (gender === 'unknown' || gender === 'Genderless') {
-      return (
-        <Genderless width={24} height={24} fill="#999" title="Genderless" />
-      );
-    }
-
-    return null;
-  })();
+  function Icon() {
+    return gender === 'Male' ? (
+      <Male width={20} height={20} fill="#33b3c8" title="Male" />
+    ) : gender === 'Female' ? (
+      <Female width={24} height={24} fill="pink" title="Female" />
+    ) : gender === 'Unknown' || gender === 'Genderless' ? (
+      <Genderless width={24} height={24} fill="#999" title="Genderless" />
+    ) : null;
+  }
 
   return (
     <CardTitleContainer className={className}>
-      <StyledCardTitle className="card-title">{name}</StyledCardTitle>
-      <IconContainer>{Icon}</IconContainer>
+      <CardTitleText className="card-title">{name}</CardTitleText>
+      <IconContainer>{Icon()}</IconContainer>
     </CardTitleContainer>
   );
 }
@@ -40,7 +32,7 @@ const CardTitleContainer = styled.div`
   margin-bottom: 10px;
 `;
 
-const StyledCardTitle = styled.h2`
+const CardTitleText = styled.h2`
   margin-right: 8px;
   transition: color 0.3s;
   overflow: hidden;

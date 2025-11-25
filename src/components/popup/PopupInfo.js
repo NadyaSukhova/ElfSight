@@ -3,7 +3,7 @@ import { Text } from '../common';
 
 export function PopupInfo({ origin, location }) {
   return (
-    <StyledPopupInfo>
+    <PopupInfoContainer>
       {origin?.name !== 'unknown' && (
         <PopupOrigin>
           <Text>First Seen in:</Text>
@@ -17,11 +17,11 @@ export function PopupInfo({ origin, location }) {
           <PopupLastLocationValue>{location?.name}</PopupLastLocationValue>
         </PopupLastLocation>
       )}
-    </StyledPopupInfo>
+    </PopupInfoContainer>
   );
 }
 
-const StyledPopupInfo = styled.div`
+const PopupInfoContainer = styled.div`
   display: flex;
   justify-content: space-between;
   flex-direction: row;

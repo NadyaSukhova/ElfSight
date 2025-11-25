@@ -3,7 +3,7 @@ import styled from 'styled-components';
 export function CardStatus({ status, species, type, className }) {
   return (
     <CardStatusContainer className={className}>
-      <StyledCardStatus status={status}>{status}</StyledCardStatus>
+      <CardStatusText status={status}>{status}</CardStatusText>
       &nbsp;-&nbsp;
       <CardSpecies>{species}</CardSpecies>
       {type && <CardType>{type}</CardType>}
@@ -16,7 +16,7 @@ const CardStatusContainer = styled.div`
   flex-wrap: wrap;
 `;
 
-const StyledCardStatus = styled.span`
+const CardStatusText = styled.span`
   display: flex;
   align-items: center;
   text-transform: capitalize;

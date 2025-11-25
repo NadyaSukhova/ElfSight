@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 import { Logo } from './Logo';
-import { Search } from './Search';
+import { Search } from '../search/Search';
 
 export function Header() {
   return (

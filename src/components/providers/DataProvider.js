@@ -22,19 +22,18 @@ export function DataProvider({ children }) {
   const [searchType, setSearchType] = useState('');
   const [searchSpecies, setSearchSpecies] = useState('');
   const [searchStatus, setSearchStatus] = useState('');
-  const [searchUrl, setSearchUrl] = useState(API_URL);
 
   useEffect(() => {
     const newSearchUrl =
-      (activePage > 0 ? `page=${activePage + 1}` : '?page=1') +
+      (activePage > 0 ? `?page=${activePage + 1}` : '?page=1') +
       (searchName ? `&name=${searchName}` : '') +
       (searchGender ? `&gender=${searchGender}` : '') +
       (searchType ? `&type=${searchType}` : '') +
       (searchSpecies ? `&species=${searchSpecies}` : '') +
       (searchStatus ? `&status=${searchStatus}` : '');
 
-    const finalUrl = newSearchUrl ? `${API_URL}?${newSearchUrl}` : API_URL;
-    setSearchUrl(finalUrl);
+    const finalUrl = newSearchUrl ? `${API_URL}${newSearchUrl}` : API_URL;
+    setApiURL(finalUrl);
   }, [
     activePage,
     searchName,
@@ -57,13 +56,14 @@ export function DataProvider({ children }) {
       .catch((e) => {
         setIsFetching(false);
         setIsError(true);
-        console.error(e);
+        console.error('There is a mistake in DataProvider:');
+        console.error(e.response.data.error);
       });
   }, []);
 
   useEffect(() => {
-    fetchData(searchUrl);
-  }, [searchUrl, fetchData]);
+    fetchData(apiURL);
+  }, [apiURL, fetchData]);
 
   const dataValue = useMemo(
     () => ({

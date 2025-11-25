@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useCallback } from 'react';
 import styled from 'styled-components';
 import { Popup } from './popup';
 import { useData } from './providers';
@@ -12,14 +12,12 @@ const defaultPopupSettings = {
 export function ItemsGrid() {
   const { characters } = useData();
   const [popupSettings, setPopupSettings] = useState(defaultPopupSettings);
-  const [scrollY, setScrollY] = useState(0);
 
-  function cardOnClickHandler(props) {
+  const cardOnClickHandler = useCallback((props) => {
     const mainElement = document.querySelector('body');
     const currentScroll = window.scrollY;
     const scrollWidth =
       window.innerWidth - document.documentElement.clientWidth;
-    setScrollY(currentScroll);
     if (mainElement) {
       mainElement.style.overflow = 'hidden';
       mainElement.style.paddingRight = `${scrollWidth}px`;
@@ -29,9 +27,9 @@ export function ItemsGrid() {
       visible: true,
       content: { ...props }
     });
-  }
+  }, []);
 
-  function closePopup() {
+  const closePopup = useCallback(() => {
     const mainElement = document.querySelector('body');
     if (mainElement) {
       mainElement.style.overflow = '';
@@ -41,7 +39,7 @@ export function ItemsGrid() {
     if (savedScroll) {
       window.scrollTo(0, savedScroll);
     }
-  }
+  }, []);
 
   if (!characters.length) {
     return null;
@@ -49,12 +47,8 @@ export function ItemsGrid() {
 
   return (
     <Container>
-      {characters.map((props, index) => (
-        <Card
-          key={index}
-          onClickHandler={() => cardOnClickHandler(props)}
-          {...props}
-        />
+      {characters.map((props) => (
+        <Card key={props.id} onClickHandler={cardOnClickHandler} {...props} />
       ))}
 
       <Popup

@@ -1,8 +1,8 @@
+import { useCallback, useEffect } from 'react';
 import styled, { css } from 'styled-components';
 import { PopupEpisodes } from './PopupEpisodes';
 import { PopupHeader } from './PopupHeader';
 import { PopupInfo } from './PopupInfo';
-import { useEffect } from 'react';
 
 export function Popup({
   settings: { visible, content = {} },
@@ -21,45 +21,40 @@ export function Popup({
     episode: episodes
   } = content;
 
-  function togglePopup(e) {
-    if (e.currentTarget !== e.target) {
-      return;
-    }
+  const closePopup = useCallback(() => {
     onClose();
-    setSettings((prevState) => ({
-      ...prevState,
-      visible: !prevState.visible
-    }));
-  }
+    setSettings((prev) => ({ ...prev, visible: false }));
+  }, [onClose, setSettings]);
 
-  const handleOverlayClick = (e) => {
-    if (e.currentTarget === e.target) {
-      onClose();
-      setSettings((prev) => ({ ...prev, visible: false }));
-    }
-  };
+  const handleOverlayClick = useCallback(
+    (e) => {
+      if (e.currentTarget === e.target) {
+        closePopup();
+      }
+    },
+    [closePopup]
+  );
 
   useEffect(() => {
     const handleEsc = (e) => {
-      if (e.keyCode === 27) {
-        onClose();
-        setSettings((prev) => ({ ...prev, visible: false }));
+      if (e.key === 'Escape') {
+        closePopup();
       }
     };
 
-    if (visible) {
-      document.addEventListener('keydown', handleEsc);
-      const deleteEsc = document.removeEventListener('keydown', handleEsc);
+    document.addEventListener('keydown', handleEsc);
 
-      return deleteEsc;
-    }
-  }, [visible, onClose, setSettings]);
+    return () => document.removeEventListener('keydown', handleEsc);
+  }, [closePopup]);
+
+  if (!visible || !name) {
+    return null;
+  }
 
   return (
     <PopupContainer visible={visible} onClick={handleOverlayClick}>
-      <StyledPopup>
-        <CloseIcon onClick={togglePopup} />
-
+      <PopupInfoContainer>
+        <CloseIcon onClick={closePopup} />
         <PopupHeader
           name={name}
           gender={gender}
@@ -68,11 +63,9 @@ export function Popup({
           species={species}
           type={type}
         />
-
         <PopupInfo origin={origin} location={location} />
-
         <PopupEpisodes episodes={episodes} />
-      </StyledPopup>
+      </PopupInfoContainer>
     </PopupContainer>
   );
 }
@@ -100,7 +93,7 @@ const PopupContainer = styled.div`
     `}
 `;
 
-const StyledPopup = styled.div`
+const PopupInfoContainer = styled.div`
   position: relative;
   width: 40%;
   margin: 0 auto;

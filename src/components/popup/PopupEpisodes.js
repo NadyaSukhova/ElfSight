@@ -11,6 +11,9 @@ export function PopupEpisodes({ episodes }) {
 
   useEffect(() => {
     if (!episodes?.length) {
+      setSeries([]);
+      setIsFetching(false);
+
       return;
     }
     try {
@@ -43,7 +46,7 @@ export function PopupEpisodes({ episodes }) {
     <PopupEpisodesContainer>
       <Text>Participated in episodes:</Text>
 
-      <StyledPopupEpisodes _length={series.length}>
+      <PopupEpisodesList _length={series.length}>
         {series?.map(({ id, name, episode }) => (
           <Episode key={id} _length={series.length}>
             <EpisodeMarking>
@@ -54,14 +57,14 @@ export function PopupEpisodes({ episodes }) {
             {name}
           </Episode>
         ))}
-      </StyledPopupEpisodes>
+      </PopupEpisodesList>
     </PopupEpisodesContainer>
   );
 }
 
 const PopupEpisodesContainer = styled.div``;
 
-const StyledPopupEpisodes = styled.div`
+const PopupEpisodesList = styled.div`
   display: flex;
   flex-direction: column;
 
@@ -71,10 +74,7 @@ const StyledPopupEpisodes = styled.div`
       display: grid;
       grid-auto-flow: column;
       grid-template-columns: 1fr 1fr;
-      grid-template-rows: repeat(
-        ${window.screen.width < 600 ? _length : Math.ceil(_length / 2)},
-        1fr
-      );
+      grid-template-rows: repeat(${Math.ceil(_length / 2)}, 1fr);
 
       & p {
         width: 95%;
@@ -82,11 +82,17 @@ const StyledPopupEpisodes = styled.div`
       }
 
       & span {
-        margin-bottom: ${window.screen.width < 600 ? '10px' : 0};
+        margin-bottom: 0;
       }
-    `};
 
-  ${window.screen.width < 600 && 'grid-template-columns: 1fr'};
+      @media (max-width: 600px) {
+        grid-template-columns: 1fr;
+        & span {
+          margin-bottom: 10px;
+        }
+        grid-template-rows: repeat(${_length}, 1fr);
+      }
+    `}
 `;
 
 const Episode = styled.p`

@@ -8,18 +8,18 @@ export function Text({
   fontSize = '16px'
 }) {
   return (
-    <StyledText
+    <TextContainer
       className={className}
       style={style}
       _color={color}
       _fontSize={fontSize}
     >
       {children}
-    </StyledText>
+    </TextContainer>
   );
 }
 
-const StyledText = styled.span`
+const TextContainer = styled.span`
   color: ${({ _color }) => _color};
   font-size: ${({ _fontSize }) => _fontSize};
 `;
