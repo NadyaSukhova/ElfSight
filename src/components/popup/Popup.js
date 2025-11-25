@@ -18,7 +18,7 @@ export function Popup({
     type,
     origin,
     location,
-    episode: episodes
+    episode
   } = content;
 
   const closePopup = useCallback(() => {
@@ -64,7 +64,7 @@ export function Popup({
           type={type}
         />
         <PopupInfo origin={origin} location={location} />
-        <PopupEpisodes episodes={episodes} />
+        <PopupEpisodes episodes={episode} />
       </PopupInfoContainer>
     </PopupContainer>
   );

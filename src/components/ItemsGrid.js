@@ -1,6 +1,7 @@
 import { useState, useCallback } from 'react';
+import axios from 'axios';
 import styled from 'styled-components';
-import { Popup } from './popup';
+import { Popup } from './popup/Popup';
 import { useData } from './providers';
 import { Card } from './card/Card';
 
@@ -13,7 +14,11 @@ export function ItemsGrid() {
   const { characters } = useData();
   const [popupSettings, setPopupSettings] = useState(defaultPopupSettings);
 
-  const cardOnClickHandler = useCallback((props) => {
+  const cardOnClickHandler = useCallback(async (character) => {
+    const response = await axios.get(
+      `https://rickandmortyapi.com/api/character/${character.id}`
+    );
+    const fullCharacterData = response.data;
     const mainElement = document.querySelector('body');
     const currentScroll = window.scrollY;
     const scrollWidth =
@@ -25,7 +30,7 @@ export function ItemsGrid() {
     }
     setPopupSettings({
       visible: true,
-      content: { ...props }
+      content: { ...fullCharacterData }
     });
   }, []);
 
@@ -47,8 +52,12 @@ export function ItemsGrid() {
 
   return (
     <Container>
-      {characters.map((props) => (
-        <Card key={props.id} onClickHandler={cardOnClickHandler} {...props} />
+      {characters.map((character) => (
+        <Card
+          key={character.id}
+          onClickHandler={cardOnClickHandler}
+          {...character}
+        />
       ))}
 
       <Popup
